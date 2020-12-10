@@ -21,6 +21,7 @@ window.addEventListener("load", function(){
       let copilotName = document.querySelector("input[name=copilotName").value; 
       let fuelLevel = document.querySelector("input[name=fuelLevel").value; 
       let cargoMass = document.querySelector("input[name=cargoMass").value; 
+      let launchStatus = document.getElementById("launchStatus"); 
       fuelLevel = Number(fuelLevel); 
       cargoMass = Number(cargoMass); 
 
@@ -40,14 +41,32 @@ window.addEventListener("load", function(){
             </div>
       `  
       let faultyItems = document.getElementById("faultyItems"); 
-      faultyItems.innerHTML = updatedHtml; 
+      faultyItems.innerHTML = updatedHtml;
+      event.preventDefault();  
      
       
       if (fuelLevel < 10000 || cargoMass > 10000){
-         faultyItems.style.visibility = "visible";
- 
-
+         faultyItems.style = "visibility: visible";
+         let fuelStatus = document.querySelector("#fuelStatus"); 
+         fuelStatus.innerText = 'There\'s not enough fuel for the journey';
+         launchStatus.innerText = "Shuttle not ready for launch";   
+         let cargoStatus = document.querySelector('#cargoStatus'); 
+         cargoStatus.innerText = 'There\'s too much in the cargo hold.'
+         launchStatus.style = "color: red";
+         event.preventDefault(); 
+      } else {
+         launchStatus.style = "color: green"; 
+         launchStatus.innerText = "Shuttle is ready for launch"; 
       }
+
+      // if(cargoMass > 10000){
+      //    faultyItems.style.visibility = "visible"; 
+      //    let cargoStatus = document.querySelector('#cargoStatus'); 
+      //    cargoStatus.innerHtml = `There's too much in the cargo hold.`
+      //    launchStatus.innerText = "Shuttle not ready for launch";   
+      //    launchStatus.style = "color: red";
+      //    event.preventDefault(); 
+      // }; 
 
    });  
 }); 
